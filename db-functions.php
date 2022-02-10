@@ -25,3 +25,16 @@ function findOneById($id) {
 	return $reponse;
 }
 
+function insertProduct($name, $descr, $price) {
+    $requete= connexion()-> prepare("INSERT INTO product VALUES (NULL,
+                                                     :name,
+                                                     :descr,
+                                                     :price,)
+                                                     ");
+                
+                $requete->bindParam(':name', $name, PDO::PARAM_STR);
+                $requete->bindParam(':descr', $descr, PDO::PARAM_STR);
+                $requete->bindParam(':price', $price, PDO::PARAM_INT);
+                
+                $requete->execute();
+}
