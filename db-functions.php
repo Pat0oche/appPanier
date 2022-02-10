@@ -22,7 +22,7 @@ function findAll() {
 
 function findOneById($id) {
     $reponse = connexion()->query("SELECT * FROM product WHERE id='".$id."'");
-	return $reponse;
+	return $reponse -> fetch();
 }
 
 function insertProduct($name, $descr, $price) {

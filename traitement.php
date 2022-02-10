@@ -54,6 +54,14 @@ else if (isset($_GET['action'])){
             header("Location:recap.php");
             die;
         break;
+
+        case "addCart":
+            if (isset($_GET['id'])) { 
+                
+            }
+            header("Location:recap.php");
+            die;
+        break;
     }
 }
 else $_SESSION['msg'] = "Casse-toi, sale pirate du dimanche !";
