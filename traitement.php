@@ -19,7 +19,8 @@ if(isset($_POST['submit'])) {
     }
     else $_SESSION['msg'] = "Formulaire mal rempli !";
 
-} else if (isset($_GET['action'])){
+} 
+else if (isset($_GET['action'])){
     switch ($_GET['action']) {
       
         case "del":
