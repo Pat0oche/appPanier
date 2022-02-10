@@ -38,3 +38,20 @@ function insertProduct($name, $descr, $price) {
                 
                 $requete->execute();
 }
+
+function addCart($id) {
+    $product=findOneById($id);
+    $requete= connexion()-> prepare("INSERT INTO cart VALUES (NULL,
+                                                     :name,
+                                                     :price,
+                                                     1,
+                                                     NULL)
+                                                     ");
+                
+    $requete->bindParam(':name', $product['name'], PDO::PARAM_STR);
+    $requete->bindParam(':descr', $product['description'], PDO::PARAM_STR);
+    $requete->bindParam(':price', $product['price'], PDO::PARAM_INT);
+    
+    $requete->execute();
+
+}
