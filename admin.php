@@ -82,8 +82,8 @@
                 </label>
             </p>
             <p>
-                <label class="form-label">Quantité désirée :
-                    <input type="number" class="form-control" name="qtt" value="1">
+                <label class="form-label">Description :
+                    <textarea class="form-control" name="descr" rows="3"></textarea>
                 </label>
             </p>
             <p>

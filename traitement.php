@@ -1,25 +1,25 @@
 <?php
 session_start();
 
+require 'db-functions.php';
+
 if(isset($_POST['submit'])) {
     $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
     $price = filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $qtt = filter_input(INPUT_POST, "qtt", FILTER_VALIDATE_INT);
+    $descr = filter_input(INPUT_POST, "descr", FILTER_DEFAULT);
 
-    if($name && $price && $qtt) {
-        $product = [
-            "name" => $name,
-            "price" => $price,
-            "qtt" => $qtt,
-            "total" => $price*$qtt,
-        ];
-
-        $_SESSION['products'][] = $product;
+    if($name && $price && $descr) {
+        $lastId = insertProduct($name, $descr, $price);
+        echo $lastId;
         $_SESSION['msg'] = "Produit ajouté !";
+        header("Location:product.php?produit=".$lastId."");
+        die;
+    } else {
+        $_SESSION['msg'] = "Formulaire mal rempli !";
     }
-    else $_SESSION['msg'] = "Formulaire mal rempli !";
 
 } 
+
 else if (isset($_GET['action'])){
     switch ($_GET['action']) {
       
@@ -57,7 +57,24 @@ else if (isset($_GET['action'])){
 
         case "addCart":
             if (isset($_GET['id'])) { 
-                
+
+                $product = findOneById($_GET['id']);
+                $name = $product['name'];
+                $price = $product['price'];
+                $qtt = 1;
+
+            if($name && $price && $qtt) {
+                $product = [
+                    "name" => $name,
+                    "price" => $price,
+                    "qtt" => $qtt,
+                    "total" => $price*$qtt,
+                ];
+
+                $_SESSION['products'][] = $product;
+                $_SESSION['msg'] = "Produit ajouté !";
+            }
+    else $_SESSION['msg'] = "Formulaire mal rempli !";
             }
             header("Location:recap.php");
             die;

@@ -22,19 +22,21 @@ function findAll() {
 
 function findOneById($id) {
     $reponse = connexion()->query("SELECT * FROM product WHERE id='".$id."'");
-	return $reponse -> fetch();
+	return $reponse -> fetch(PDO::FETCH_ASSOC);
 }
 
 function insertProduct($name, $descr, $price) {
-    $requete= connexion()-> prepare("INSERT INTO product VALUES (NULL,
-                                                     :name,
-                                                     :descr,
-                                                     :price,)
-                                                     ");
+    $conn = connexion();
+    $requete= $conn-> prepare("INSERT INTO product 
+                                        (name, description, price) 
+                                        VALUES 
+                                        (:name, :descr, :price)");
                 
-                $requete->bindParam(':name', $name, PDO::PARAM_STR);
-                $requete->bindParam(':descr', $descr, PDO::PARAM_STR);
-                $requete->bindParam(':price', $price, PDO::PARAM_INT);
-                
-                $requete->execute();
+    $requete->bindParam(':name', $name, PDO::PARAM_STR);
+    $requete->bindParam(':descr', $descr, PDO::PARAM_STR);
+    $requete->bindParam(':price', $price, PDO::PARAM_STR);
+    
+    $requete->execute();
+    
+    return $conn->lastInsertId();
 }
