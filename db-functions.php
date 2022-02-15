@@ -8,7 +8,7 @@ function connexion() {
     ];
 
     try {
-        $bdd = new PDO ('mysql:host=localhost; dbname=appli; charset=utf8', 'root', '', $options);
+        $bdd = new PDO ('mysql:host=localhost; dbname=store; charset=utf8', 'root', '', $options);
         return $bdd;
     } catch (PDOException $e) {
         throw new PDOException($e->getMessage(), (int)$e->getCode());
@@ -37,21 +37,4 @@ function insertProduct($name, $descr, $price) {
                 $requete->bindParam(':price', $price, PDO::PARAM_INT);
                 
                 $requete->execute();
-}
-
-function addCart($id) {
-    $product=findOneById($id);
-    $requete= connexion()-> prepare("INSERT INTO cart VALUES (NULL,
-                                                     :name,
-                                                     :price,
-                                                     1,
-                                                     NULL)
-                                                     ");
-                
-    $requete->bindParam(':name', $product['name'], PDO::PARAM_STR);
-    $requete->bindParam(':descr', $product['description'], PDO::PARAM_STR);
-    $requete->bindParam(':price', $product['price'], PDO::PARAM_INT);
-    
-    $requete->execute();
-
 }
