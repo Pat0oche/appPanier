@@ -12,7 +12,7 @@ if(isset($_POST['submit'])) {
         $lastId = insertProduct($name, $descr, $price);
         echo $lastId;
         $_SESSION['msg'] = "Produit ajouté !";
-        header("Location:product.php?produit=".$lastId."");
+        header("Location:admin.php");
         die;
     } else {
         $_SESSION['msg'] = "Formulaire mal rempli !";

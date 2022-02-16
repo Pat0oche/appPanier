@@ -2,6 +2,9 @@
 
 function afficherMsg() {
     if (isset($_SESSION['msg'])) {
-        return $_SESSION['msg'];
+        $msg = $_SESSION['msg'];
+        unset($_SESSION['msg']);
+        return $msg;
     }
+    return false;
 }

@@ -21,7 +21,9 @@ function findAll() {
 }
 
 function findOneById($id) {
-    $reponse = connexion()->query("SELECT * FROM product WHERE id='".$id."'");
+    $reponse = connexion()->prepare("SELECT * FROM product WHERE id=:id");
+    $reponse->bindParam("id", $id, PDO::PARAM_INT);
+    $reponse->execute();
 	return $reponse -> fetch(PDO::FETCH_ASSOC);
 }
 

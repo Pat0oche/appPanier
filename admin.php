@@ -4,11 +4,7 @@
     require('functions.php');
 
     if(isset($_SESSION['msg'])) {
-        echo "<script>
-        window.addEventListener('load', ()=>{
-            myModal.show();
-        }) 
-        </script>";
+        echo "";
     }
     
     
@@ -92,24 +88,33 @@
         </form>
     </div>
     </div>
-    <div class="modal" id="myModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Yop !</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p><?php
-                    echo afficherMsg();
-                    unset($_SESSION['msg']);?></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+    <?php
+        if($msg = afficherMsg()){
+            ?>
+            <div class="modal" id="myModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Yop !</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p><?= $msg ?></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+            <script>
+                window.addEventListener('load', ()=>{
+                    myModal.show();
+                }) 
+            </script>
+            <?php
+        }
+    ?>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
